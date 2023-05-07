@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1039285680039",
+    "project_id": "brur-cms",
+    "storage_bucket": "brur-cms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039285680039:android:3579ac76d2702ff40f6882",
+        "android_client_info": {
+          "package_name": "com.atiq.cmsadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039285680039-2m6mrednk4rk1h450s313hs0hhsdo1id.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdZCL3etxmtpaXcwcWf7vSeSk0xGPz5qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039285680039-2m6mrednk4rk1h450s313hs0hhsdo1id.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
