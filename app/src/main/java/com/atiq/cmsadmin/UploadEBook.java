@@ -132,6 +132,7 @@ public class UploadEBook extends AppCompatActivity {
 
     private void OpenGallery() {
         Intent intent = new Intent();
+//        intent.setType("pdf/docs/ppt");
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Pdf File"),REQ);

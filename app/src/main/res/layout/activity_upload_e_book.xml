@@ -60,11 +60,18 @@
             android:textSize="20dp"
             android:textColor="@color/textColor"
             />
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/pdfTitle"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="PDF Title"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pdfTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="PDF Title"/>
+        </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/pdfUploadBtn"
             android:layout_width="match_parent"

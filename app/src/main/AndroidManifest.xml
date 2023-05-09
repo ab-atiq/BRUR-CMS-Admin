@@ -16,6 +16,20 @@
         android:theme="@style/Theme.CMSAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".AddTeacher"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".UpdateFaculty"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".UploadEBook"
             android:exported="false">
             <meta-data

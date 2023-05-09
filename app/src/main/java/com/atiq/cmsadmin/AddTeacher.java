@@ -3,9 +3,7 @@ package com.atiq.cmsadmin;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,11 +14,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import com.atiq.cmsadmin.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,47 +31,47 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
-public class UploadImage extends AppCompatActivity {
-    private Spinner imageCategory;
-    private CardView UISelectImageGallery;
-    private ImageView galleryImageView;
-    private Button uploadImageBtn;
+public class AddTeacher extends AppCompatActivity {
+    ImageView addTeacherImage;
+    EditText addTeacherName,addTeacherEmail,addTeacherPost;
+    Spinner teacherCategory;
+    Button addTeacherBtn;
 
     String selectCategory;
     private final int REQ = 1;
     private Bitmap bitmap;
     ProgressDialog pd;
-    DatabaseReference databaseReference, dbRef;
+    DatabaseReference databaseReference,dbRef;
     StorageReference storageReference;
-    String downloadUrl;
+    String name, email, post, downloadUrl="";
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_image);
+        setContentView(R.layout.activity_add_teacher);
 
-        imageCategory = findViewById(R.id.imageCategory);
-        UISelectImageGallery = findViewById(R.id.UISelectImageGallery);
-        galleryImageView = findViewById(R.id.galleryImageView);
-        uploadImageBtn = findViewById(R.id.uploadImageBtn);
-
+        addTeacherImage = findViewById(R.id.addTeacherImage);
+        addTeacherName = findViewById(R.id.addTeacherName);
+        addTeacherEmail = findViewById(R.id.addTeacherEmail);
+        addTeacherPost = findViewById(R.id.addTeacherPost);
+        teacherCategory = findViewById(R.id.teacherCategory);
+        addTeacherBtn = findViewById(R.id.addTeacherBtn);
         pd = new ProgressDialog(this);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("gallery");
-        storageReference = FirebaseStorage.getInstance().getReference().child("gallery");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("teachers");
+        storageReference = FirebaseStorage.getInstance().getReference().child("teachers");
 
-        String[] items = new String[]{"Select Category","Convocation","Independent Day","Other Events"};
+        String[] items = new String[]{"Select Category","CSE","EEE","Physics","Mathematics","Chemistry"};
         ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        imageCategory.setAdapter(arrayAdapter);
-        imageCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        teacherCategory.setAdapter(arrayAdapter);
+        teacherCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectCategory = imageCategory.getSelectedItem().toString();
+                selectCategory = teacherCategory.getSelectedItem().toString();
             }
 
             @Override
@@ -80,27 +80,45 @@ public class UploadImage extends AppCompatActivity {
             }
         });
 
-        UISelectImageGallery.setOnClickListener(new View.OnClickListener() {
+        addTeacherImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OpenGallery();
             }
         });
 
-        uploadImageBtn.setOnClickListener(new View.OnClickListener() {
+        addTeacherBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bitmap==null){
-                    Toast.makeText(UploadImage.this, "Please upload image", Toast.LENGTH_SHORT).show();
-                }else if(selectCategory.equals("Select Category")){
-                    Toast.makeText(UploadImage.this, "Please select image category", Toast.LENGTH_SHORT).show();
-                }else{
-                    dbRef = databaseReference.child(selectCategory);
-                    uploadImage(arrayAdapter);
-                }
+                checkValidation(arrayAdapter);
             }
         });
 
+    }
+
+    private void checkValidation(SpinnerAdapter arrayAdapter) {
+        name = addTeacherName.getText().toString();
+        email = addTeacherEmail.getText().toString();
+        post = addTeacherPost.getText().toString();
+        // select child as selected category
+        dbRef = databaseReference.child(selectCategory);
+
+        if(name.isEmpty()){
+            addTeacherName.setError("Empty name");
+            addTeacherName.requestFocus();
+        }else if(email.isEmpty()){
+            addTeacherEmail.setError("Empty email");
+            addTeacherEmail.requestFocus();
+        }else if(post.isEmpty()){
+            addTeacherPost.setError("Empty post");
+            addTeacherPost.requestFocus();
+        }else if(selectCategory.equals("Select Category")){
+            Toast.makeText(getApplicationContext(),"Please select teacher category",Toast.LENGTH_LONG).show();
+        }else if(bitmap==null){
+            uploadData(arrayAdapter);
+        }else{
+            uploadImage(arrayAdapter);
+        }
     }
 
     private void uploadImage(SpinnerAdapter arrayAdapter) {
@@ -112,7 +130,7 @@ public class UploadImage extends AppCompatActivity {
         final StorageReference filePath;
         filePath = storageReference.child(finalImg+"jpg");
         final UploadTask uploadTask = filePath.putBytes(finalImg);
-        uploadTask.addOnCompleteListener(UploadImage.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        uploadTask.addOnCompleteListener(AddTeacher.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
@@ -131,32 +149,34 @@ public class UploadImage extends AppCompatActivity {
                     });
                 }else{
                     pd.dismiss();
-                    Toast.makeText(UploadImage.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTeacher.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void uploadData(SpinnerAdapter arrayAdapter) {
-//        dbRef = databaseReference.child(selectCategory);
         final String uniqueKey = dbRef.push().getKey();
-
-        dbRef.child(uniqueKey).setValue(downloadUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
+        TeacherData teacherData = new TeacherData(name, email, post, downloadUrl, uniqueKey);
+        dbRef.child(uniqueKey).setValue(teacherData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 pd.dismiss();
+                addTeacherEmail.setText("");
+                addTeacherName.setText("");
+                addTeacherPost.setText("");
                 bitmap = null;
-                galleryImageView.setImageBitmap(bitmap);
-                imageCategory.setAdapter(arrayAdapter);
+//                addTeacherImage.setImageBitmap(bitmap);
+                teacherCategory.setAdapter(arrayAdapter);
                 // recreate this page
                 // recreate();
-                Toast.makeText(UploadImage.this, "Image successfully added ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddTeacher.this, "Data successfully added ", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(UploadImage.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddTeacher.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -177,7 +197,8 @@ public class UploadImage extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            galleryImageView.setImageBitmap(bitmap);
+            addTeacherImage.setImageBitmap(bitmap);
         }
     }
+
 }

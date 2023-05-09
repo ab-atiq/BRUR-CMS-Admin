@@ -41,7 +41,7 @@ public class AddNoticeActivity extends AppCompatActivity {
 
     private final int REQ = 1;
     private Bitmap bitmap;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference,dbRef;
     StorageReference storageReference;
     String downloadUrl = "";
     private ProgressDialog pd;
@@ -117,8 +117,8 @@ public class AddNoticeActivity extends AppCompatActivity {
     }
 
     private void uploadData() {
-        databaseReference = databaseReference.child("Notice");
-        final String uniqueKey = databaseReference.push().getKey();
+        dbRef = databaseReference.child("Notice");
+        final String uniqueKey = dbRef.push().getKey();
 
         String title = noticeTitle.getText().toString();
 
@@ -131,7 +131,7 @@ public class AddNoticeActivity extends AppCompatActivity {
         String time = currentTime.format(calForTime.getTime());
 
         NoticeDB noticeDB = new NoticeDB(title,downloadUrl,date,time,uniqueKey);
-        databaseReference.child(uniqueKey).setValue(noticeDB).addOnSuccessListener(new OnSuccessListener<Void>() {
+        dbRef.child(uniqueKey).setValue(noticeDB).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 pd.dismiss();
