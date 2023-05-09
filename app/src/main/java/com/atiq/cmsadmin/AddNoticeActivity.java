@@ -51,6 +51,7 @@ public class AddNoticeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notice);
+
         selectImageFromGallery = findViewById(R.id.selectImageFromGallery);
         noticeImageView = findViewById(R.id.noticeImageView);
         noticeUploadBtn = findViewById(R.id.noticeUploadBtn);
