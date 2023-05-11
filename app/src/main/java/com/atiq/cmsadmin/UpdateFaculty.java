@@ -76,7 +76,7 @@ public class UpdateFaculty extends AppCompatActivity {
                     }
                     physicsDepartment.setHasFixedSize(true);
                     physicsDepartment.setLayoutManager(new LinearLayoutManager(UpdateFaculty.this));
-                    adapter = new TeacherAdapter(physicsList, UpdateFaculty.this);
+                    adapter = new TeacherAdapter(physicsList, UpdateFaculty.this,"Physics");
                     physicsDepartment.setAdapter(adapter);
                 }
             }
@@ -106,7 +106,7 @@ public class UpdateFaculty extends AppCompatActivity {
                     }
                     eeeDepartment.setHasFixedSize(true);
                     eeeDepartment.setLayoutManager(new LinearLayoutManager(UpdateFaculty.this));
-                    adapter = new TeacherAdapter(eeeList, UpdateFaculty.this);
+                    adapter = new TeacherAdapter(eeeList, UpdateFaculty.this, "EEE");
                     eeeDepartment.setAdapter(adapter);
                 }
             }
@@ -136,7 +136,7 @@ public class UpdateFaculty extends AppCompatActivity {
                     }
                     cseDepartment.setHasFixedSize(true);
                     cseDepartment.setLayoutManager(new LinearLayoutManager(UpdateFaculty.this));
-                    adapter = new TeacherAdapter(cseList, UpdateFaculty.this);
+                    adapter = new TeacherAdapter(cseList, UpdateFaculty.this, "CSE");
                     cseDepartment.setAdapter(adapter);
                 }
             }

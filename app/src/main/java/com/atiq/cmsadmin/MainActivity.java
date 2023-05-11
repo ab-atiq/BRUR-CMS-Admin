@@ -9,7 +9,7 @@ import android.view.View;
 import com.google.android.material.card.MaterialCardView;
 
 public class MainActivity extends AppCompatActivity {
-    MaterialCardView addNotice,addImage,addEBook, addFaculty;
+    MaterialCardView addNotice,addImage,addEBook, addFaculty, deleteNotice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         addImage = findViewById(R.id.addImage);
         addEBook = findViewById(R.id.addEBook);
         addFaculty = findViewById(R.id.addFaculty);
+        deleteNotice = findViewById(R.id.deleteNotice);
 
         addNotice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),UpdateFaculty.class));
+            }
+        });
+
+        deleteNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),DeleteNoticeActivity.class));
             }
         });
     }

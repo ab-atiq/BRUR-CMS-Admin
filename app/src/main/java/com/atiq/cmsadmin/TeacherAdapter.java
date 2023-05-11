@@ -20,10 +20,12 @@ import java.util.List;
 public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherViewAdapter> {
     private List<TeacherData> list;
     private Context context;
+    private String category;
 
-    public TeacherAdapter(List<TeacherData> list, Context context) {
+    public TeacherAdapter(List<TeacherData> list, Context context, String category) {
         this.list = list;
         this.context = context;
+        this.category = category;
     }
 
     @NonNull
@@ -49,10 +51,16 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
         holder.updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Update Teacher",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"Update Teacher",Toast.LENGTH_SHORT).show();
                 // go to update activity
-                Intent intent = new Intent();
-
+                Intent intent = new Intent(context, UpdateTeacherActivity.class);
+                intent.putExtra("name",item.getName());
+                intent.putExtra("email",item.getEmail());
+                intent.putExtra("post",item.getPost());
+                intent.putExtra("image",item.getImage());
+                intent.putExtra("key",item.getKey());
+                intent.putExtra("category", category);
+                context.startActivity(intent);
             }
         });
     }
