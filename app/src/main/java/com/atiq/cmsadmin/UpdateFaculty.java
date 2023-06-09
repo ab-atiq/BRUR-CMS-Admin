@@ -23,9 +23,9 @@ import java.util.List;
 
 public class UpdateFaculty extends AppCompatActivity {
     private FloatingActionButton fab;
-    private RecyclerView cseDepartment, eeeDepartment, physicsDepartment;
-    private LinearLayout cseNoData, eeeNoData, physicsNoData;
-    private List<TeacherData> cseList, eeeList, physicsList;
+    private RecyclerView cseDepartment, eeeDepartment, physicsDepartment, mathematicsDepartment, chemistryDepartment;
+    private LinearLayout cseNoData, eeeNoData, physicsNoData, mathematicsNoData, chemistryNoData;
+    private List<TeacherData> cseList, eeeList, physicsList, mathList, chemList;
     private TeacherAdapter adapter;
     private DatabaseReference databaseReference, dbRef;
 
@@ -37,10 +37,14 @@ public class UpdateFaculty extends AppCompatActivity {
         cseDepartment = findViewById(R.id.cseDepartment);
         eeeDepartment = findViewById(R.id.eeeDepartment);
         physicsDepartment = findViewById(R.id.physicsDepartment);
+        mathematicsDepartment = findViewById(R.id.mathematicsDepartment);
+        chemistryDepartment = findViewById(R.id.chemistryDepartment);
 
         cseNoData = findViewById(R.id.cseNoData);
         eeeNoData = findViewById(R.id.eeeNoData);
         physicsNoData = findViewById(R.id.physicsNoData);
+        mathematicsNoData = findViewById(R.id.mathematicsNoData);
+        chemistryNoData = findViewById(R.id.chemistryNoData);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("teachers");
         fab = findViewById(R.id.fab);
@@ -55,7 +59,70 @@ public class UpdateFaculty extends AppCompatActivity {
         cseDepartment();
         eeeDepartment();
         physicsDepartment();
+        mathematicsDepartment();
+        chemistryDepartment();
 
+    }
+
+    private void chemistryDepartment() {
+        dbRef = databaseReference.child("Chemistry");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chemList = new ArrayList<>();
+                if(!snapshot.exists()){
+                    chemistryNoData.setVisibility(View.VISIBLE);
+                    chemistryDepartment.setVisibility(View.GONE);
+                }else{
+                    chemistryNoData.setVisibility(View.GONE);
+                    chemistryDepartment.setVisibility(View.VISIBLE);
+                    for(DataSnapshot dSnapshot:snapshot.getChildren()){
+                        TeacherData data = dSnapshot.getValue(TeacherData.class);
+                        chemList.add(data);
+                    }
+                    chemistryDepartment.setHasFixedSize(true);
+                    chemistryDepartment.setLayoutManager(new LinearLayoutManager(UpdateFaculty.this));
+                    adapter = new TeacherAdapter(chemList, UpdateFaculty.this,"Mathematics");
+                    chemistryDepartment.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(UpdateFaculty.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void mathematicsDepartment() {
+        dbRef = databaseReference.child("Mathematics");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mathList = new ArrayList<>();
+                if(!snapshot.exists()){
+                    mathematicsNoData.setVisibility(View.VISIBLE);
+                    mathematicsDepartment.setVisibility(View.GONE);
+                }else{
+                    mathematicsNoData.setVisibility(View.GONE);
+                    mathematicsDepartment.setVisibility(View.VISIBLE);
+                    for(DataSnapshot dSnapshot:snapshot.getChildren()){
+                        TeacherData data = dSnapshot.getValue(TeacherData.class);
+                        mathList.add(data);
+                    }
+                    mathematicsDepartment.setHasFixedSize(true);
+                    mathematicsDepartment.setLayoutManager(new LinearLayoutManager(UpdateFaculty.this));
+                    adapter = new TeacherAdapter(mathList, UpdateFaculty.this,"Mathematics");
+                    mathematicsDepartment.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(UpdateFaculty.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void physicsDepartment() {

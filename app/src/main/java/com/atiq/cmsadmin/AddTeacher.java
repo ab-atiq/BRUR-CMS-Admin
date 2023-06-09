@@ -171,6 +171,7 @@ public class AddTeacher extends AppCompatActivity {
                 // recreate this page
                 // recreate();
                 Toast.makeText(AddTeacher.this, "Data successfully added ", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),UpdateFaculty.class));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

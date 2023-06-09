@@ -44,10 +44,10 @@
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:id="@+id/cseDepartment"
                 android:visibility="gone"
-                android:nestedScrollingEnabled="false"
+                android:nestedScrollingEnabled="true"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,10 +75,10 @@
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:id="@+id/eeeDepartment"
                 android:visibility="gone"
-                android:nestedScrollingEnabled="false"
+                android:nestedScrollingEnabled="true"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,6 +87,7 @@
                 >
                 <include layout="@layout/no_data_found"/>
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,15 +106,77 @@
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:id="@+id/physicsDepartment"
                 android:visibility="gone"
-                android:nestedScrollingEnabled="false"
+                android:nestedScrollingEnabled="true"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/physicsNoData"
+                >
+                <include layout="@layout/no_data_found"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mathematics"
+                android:gravity="center"
+                android:textColor="@color/textColor"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16sp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="8dp"
+                android:background="@color/lightGray"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/mathematicsDepartment"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="true"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mathematicsNoData"
+                >
+                <include layout="@layout/no_data_found"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chemistry"
+                android:gravity="center"
+                android:textColor="@color/textColor"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16sp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="8dp"
+                android:background="@color/lightGray"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/chemistryDepartment"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="true"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chemistryNoData"
                 >
                 <include layout="@layout/no_data_found"/>
             </LinearLayout>
