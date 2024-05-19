@@ -65,7 +65,7 @@ public class UploadImage extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("gallery");
         storageReference = FirebaseStorage.getInstance().getReference().child("gallery");
 
-        String[] items = new String[]{"Select Category","Convocation","Independent Day","Other Events"};
+        String[] items = new String[]{"Select Category","Convocation","Independent Day","Other Events","Demo"};
         ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         imageCategory.setAdapter(arrayAdapter);
         imageCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
